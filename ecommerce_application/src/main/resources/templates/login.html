@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<title>Document</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<h2>Login</h2>
+					<p>Please fill out this to login</p>
+					<form th:action="@{/login}" method="post">
+
+						<!-- Email Field -->
+						<div class="form-group">
+							<label for="email">Email</label> <input type="email" name="email"
+								id="email" placeholder="Your Email"
+								class="form-control form-control-lg">
+						</div>
+
+						<!-- Password Field -->
+						<div class="form-group">
+							<label for="password">Password</label> <input type="password"
+								class="form-control form-control-lg" placeholder="Password"
+								name="password" id="password">
+						</div>
+						<div th:if="${param.error}" class="alert alert-error text-danger">
+							Invalid username or password.</div>
+
+						<!-- Button Field -->
+						<input type="submit" value="Login"
+							class="btn btn-primary btn-block"> <br> <span>Don't
+							have an account <a class="linkControl" href="./register.html"
+							th:href="@{/register}">Register here</a>
+						</span> <br> <a href="" th:href="@{/forgotpassword}">Forgot
+							password ?</a>
+					</form>
+					<br>
+					<h3>OR</h3>
+					<a href="/oauth2/authorization/google" class="btn btn-primary">Sign-In
+						with google </a>
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+</body>
+</html>

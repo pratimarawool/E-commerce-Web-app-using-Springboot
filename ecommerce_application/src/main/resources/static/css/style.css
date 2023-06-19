@@ -1,0 +1,11 @@
+.my-card{
+	background: #ffffff;
+	padding :20px;
+	border-radius: 10px;
+}
+
+.heading{
+	color:#0099FF;
+	font-style: italic;
+	font-variant: inherit;
+}

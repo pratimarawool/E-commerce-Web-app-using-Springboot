@@ -1,0 +1,46 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/adminbase::layout(~{::section})">
+<head>
+</head>
+<body>
+	<section>
+		<div class="container">
+
+			<!--  Add Categories Field -->
+			<a th:href="@{/admin/categories-manage/add}" style="margin: 20px 0"
+				class="btn btn-primary">Add Category</a>
+
+			<!-- Table to view categories present in DB and upldate/delete them -->
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">SN</th>
+						<th scope="col">PROD ID</th>
+						<th scope="col">Category Name</th>
+						<th scope="col">Delete</th>
+						<th scope="col">Update</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="c,count : ${category}">
+						<th scope="row" th:text="${count.index + 1}">1</th>
+						<td th:text="${'PRODID'+c.id}">1</td>
+						<td th:text="${c.name}">Larry</td>
+
+						<!--  Update/Delete Button -->
+						<td><a th:onclick="|deletecategory(${c.id})|"
+							class="btn btn-danger btn-sm mt-2">Delete</a></td>
+						<td><form th:action="@{'/admin/update-category/'+${c.id}}"
+								method="post">
+								<button type="submit" class="btn btn-warning btn-sm">Update</button>
+							</form></td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+</body>
+</html>

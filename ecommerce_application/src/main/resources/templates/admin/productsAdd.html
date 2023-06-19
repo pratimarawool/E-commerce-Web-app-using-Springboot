@@ -1,0 +1,101 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="admin/adminbase::layout(~{::section})">
+<head>
+</head>
+<body>
+	<section>
+		<div class="container mt-3">
+
+			<h3 class="text-center heading mt-3"></h3>
+
+			<!-- alert message for record add successful or failure -->
+			<div th:if="${session.message}" class="container col-8">
+
+				<div th:classappend="${'alert-'+session.message.type}"
+					class="alert  text-center">
+					<span th:text="${session.message.content}"></span>
+				</div>
+				<!-- remove alert after completion -->
+				<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+			</div>
+
+			<form th:action="@{/admin/products-manage/add-process}" method="post"
+				th:object="${productDTO}" enctype="multipart/form-data">
+				<div class="row">
+					<div class="col-sm-5">
+
+						<!-- Hidden Id Field -->
+						<input type="hidden" name="id" th:value="${productDTO.id}">
+
+						<!-- Product Name Field -->
+						<div class="form-group  mt-3">
+							<label for="name">Name</label> <input type="text"
+								class="form-control" required th:value="${productDTO.name}"
+								name="name" id="name" placeholder="Enter name"
+								th:classappend="${#fields.hasErrors('name')?'is-invalid': ' ' }">
+							<div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+								class="invalid-feedback"></div>
+						</div>
+
+						<!-- Category Name Field -->
+						<div class="form-group">
+							<label for="category">Select
+								Category</label> <select class="form-control"
+								th:field="${productDTO.categoryId}" name="category"
+								id="category">
+								<option th:each="category :${categories}"
+									th:value="${category.id}" th:text="${category.name}">
+							</select>
+						</div>
+
+						<!-- Price Field -->
+						<div class="form-group">
+							<label for="price" name="price"
+								th:classappend="${#fields.hasErrors('price')?'is-invalid': ' ' }">Price</label>
+							<input type="number" class="form-control" required
+								th:value="${productDTO.price}" name="price" id="price"
+								placeholder="Price">
+							<div th:each="e : ${#fields.errors('price')}" th:text="${e}"
+								class="invalid-feedback"></div>
+						</div>
+
+						<!-- Weight Field -->
+						<div class="form-group">
+							<label for="weight" name="weight"
+								th:classappend="${#fields.hasErrors('weight')?'is-invalid': ' ' }">Weight
+								in grams</label> <input type="number" class="form-control" required
+								th:value="${productDTO.weight}" name="weight" id="weight"
+								placeholder="Weight">
+							<div th:each="e : ${#fields.errors('weight')}" th:text="${e}"
+								class="invalid-feedback"></div>
+						</div>
+
+						<!-- Product Description Field -->
+						<div class="form-group">
+							<label for="description" name="description"
+								th:classappend="${#fields.hasErrors('description')?'is-invalid': ' ' }">Product
+								Description</label>
+							<textarea class="form-control" rows="5"
+								th:value="${productDTO.description}" name="description"
+								id="description"></textarea>
+							<div th:each="e : ${#fields.errors('description')}" th:text="${e}"
+								class="invalid-feedback"></div>
+						</div>
+					</div>
+
+					<div class="col-sm-5  mt-3 ml-3">
+
+						<!-- Product Image -->
+						<p>Product Image</p>
+						<input type="file" name="imagename"><br>
+						<button type="submit" class="btn btn-primary mt-3">Submit</button>
+						<a th:href="@{/admin/products-manage}" class="btn btn-primary mt-3 ml-2">Back</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+
+</body>
+</html>
